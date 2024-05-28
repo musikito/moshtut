@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const ListGroup = () => {
     const items = [
         {
@@ -22,23 +24,24 @@ const ListGroup = () => {
         },
     ];
     // items = [];
-    
+    const [selectedIndex, setSelectedIndex] = useState(-1);
+
     const getMessage = () => {
-        items.length === 0? <p>No item found</p> : "Items";
+        items.length === 0 ? <p>No item found</p> : "Items";
 
     }
     return (
         <>
             <h1>List</h1>
             {getMessage()}
-        <ul className="list-group">
-       {items.map((item) => (
-                <li className="list-group-item" key={item.id} onClick={() => console.log(item.name)}>
-                    {item.name}
-                </li>
-            ))}
-      </ul>
-      </>
+            <ul className="list-group">
+                {items.map((item, index) => (
+                    <li className={selectedIndex === index ? 'list-group-item active' : 'list-group-item'} key={item.id} onClick={() => { setSelectedIndex(index); }}>
+                        {item.name}
+                    </li>
+                ))}
+            </ul>
+        </>
     );
 }
 
