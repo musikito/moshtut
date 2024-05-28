@@ -1,29 +1,15 @@
 import { useState } from "react";
 
-const ListGroup = () => {
-    const items = [
-        {
-            id: 1,
-            name: "New York",
-        },
-        {
-            id: 2,
-            name: "Rhode Island",
-        },
-        {
-            id: 3,
-            name: "San Francisco",
-        },
-        {
-            id: 4,
-            name: "Philadelphia",
-        },
-        {
-            id: 5,
-            name: "Chicago",
-        },
-    ];
-    // items = [];
+interface Props {
+    items: string[];
+    heading: string;
+    onSelectitem: (item: string) => void;
+}
+
+
+const ListGroup = ({ items, heading, onSelectitem }: Props) => {
+
+
     const [selectedIndex, setSelectedIndex] = useState(-1);
 
     const getMessage = () => {
@@ -32,14 +18,15 @@ const ListGroup = () => {
     }
     return (
         <>
-            <h1>List</h1>
+            <h1>{heading}</h1>
             {getMessage()}
             <ul className="list-group">
                 {items.map((item, index) => (
-                    <li className={selectedIndex === index ? 'list-group-item active' : 'list-group-item'} key={item.id} onClick={() => { setSelectedIndex(index); }}>
-                        {item.name}
+                    <li className={selectedIndex === index ? 'list-group-item active' : 'list-group-item'} key={index} onClick={() => { setSelectedIndex(index); onSelectitem(item); }} >
+                        {item}
                     </li>
                 ))}
+
             </ul>
         </>
     );
